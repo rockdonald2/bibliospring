@@ -25,6 +25,7 @@ jobs:
           printf "[safe]\ndirectory = /github/workspace" > /home/runner/work/_temp/_github_home/.gitconfig
       - name: Build project
         run: |
+          chmod +x gradlew
           ./gradlew assemble
       - name: Test project
         run: |
