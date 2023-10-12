@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'edu.bbte'
+version = '1.0-SNAPSHOT'
+java.sourceCompatibility = JavaVersion.VERSION_17 // LTS
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'mysql:mysql-connector-java:8.0.32'
+    implementation 'org.slf4j:slf4j-api:2.0.7'
+    runtimeOnly 'ch.qos.logback:logback-core:1.3.5'
+    runtimeOnly 'ch.qos.logback:logback-classic:1.3.5'
+
+    implementation platform('org.testcontainers:testcontainers-bom:1.17.6')
+    testImplementation "org.testcontainers:testcontainers"
+    testImplementation "org.testcontainers:mysql"
+    testImplementation "org.testcontainers:junit-jupiter"
+    testImplementation "org.junit.jupiter:junit-jupiter:5.8.1"
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+application {
+    mainClassName 'edu.bbte.bibliospring.backend.BiblioSpringMain'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+
+    dependsOn "cleanTest"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Javadoc).configureEach {
+    options.encoding = 'UTF-8'
+}
