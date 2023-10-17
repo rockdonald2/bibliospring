@@ -1,5 +1,8 @@
 package edu.bbte.bibliospring.backend.model;
 
+/**
+ * Felhasználó entitás.
+ */
 public class User extends BaseEntity {
 
     private String username;
